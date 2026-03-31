@@ -1,0 +1,18 @@
+<svg width="320" height="80" viewBox="0 0 320 80" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="50%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#22c55e"/>
+    </linearGradient>
+  </defs>
+  <rect x="12" y="14" rx="14" ry="14" width="54" height="54" fill="url(#grad)" opacity="0.14"/>
+  <rect x="20" y="22" rx="10" ry="10" width="38" height="38" fill="url(#grad)"/>
+  <path d="M32 42c0-6 4.5-10 10-10s10 4 10 10-4.5 10-10 10-10-4-10-10z" fill="#fff" opacity="0.9"/>
+  <text x="90" y="50" fill="#0f172a" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="28" font-weight="800">
+    Employment Portal
+  </text>
+  <text x="90" y="66" fill="#475569" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="14" font-weight="600">
+    Hire. Apply. Decide faster.
+  </text>
+</svg>
