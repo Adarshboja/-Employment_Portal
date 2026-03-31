@@ -22,9 +22,8 @@ const RecruiterDashboard = () => {
   const fetchMyJobs = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get('/api/jobs/recruiter/me');
-      setJobs(data);
-    } catch (error) {
+     const { data } = await axios.get(`${API}/api/jobs/recruiter/me`);   
+     setJobs(Array.isArray(data) ? data : data.jobs || []);    } catch (error) {
       toast.error('Failed to load posted jobs');
     } finally {
       setLoading(false);
@@ -60,7 +59,7 @@ const handlePostJob = async (e) => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this job?')) {
       try {
-        await axios.delete(`/api/jobs/${id}`);
+       await axios.delete(`${API}/api/jobs/${id}`);
         toast.success('Job deleted');
         fetchMyJobs();
       } catch (error) {
@@ -167,8 +166,8 @@ const handlePostJob = async (e) => {
           </div>
         ) : (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', gap: '24px' }}>
-            {jobs.map((job, i) => (
-              <motion.div 
+         {Array.isArray(jobs) && jobs.map((job, i) => (         
+               <motion.div 
                 key={job._id} 
                 className="glass-panel" 
                 style={{ padding: '24px', display: 'flex', flexDirection: 'column', height: '100%', position: 'relative', overflow: 'hidden' }} 
