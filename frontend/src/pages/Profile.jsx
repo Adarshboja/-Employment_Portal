@@ -3,6 +3,7 @@ import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
+import { assetUrl } from '../config';
 
 const Profile = () => {
   const { user, updateUser } = useContext(AuthContext);
@@ -122,7 +123,8 @@ const Profile = () => {
               <label htmlFor="avatar-upload" style={{ cursor: 'pointer', zIndex: 10 }}>
                 <div style={{ width: '92px', height: '92px', borderRadius: '50%', backgroundColor: 'var(--accent-primary)', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '2.5rem', fontWeight: 'bold', color: 'white', position: 'relative' }}>
                    {avatarPreview || user.avatar ? (
-<img src={avatarPreview || `https://employment-portal-ajcf.onrender.com/${user.avatar}`} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />                   ) : (
+                     <img src={avatarPreview || assetUrl(user.avatar)} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                   ) : (
                      <>{user.name?.charAt(0).toUpperCase() || 'U'}</>
                    )}
                    <div style={{ position: 'absolute', bottom: 0, width: '100%', height: '30px', background: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '0.7rem' }}>
