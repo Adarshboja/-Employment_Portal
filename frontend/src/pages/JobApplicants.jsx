@@ -71,8 +71,7 @@ const JobApplicants = () => {
                   {/* Avatar simple */}
                   <div style={{ width: '96px', height: '96px', borderRadius: '50%', backgroundColor: 'var(--accent-primary)', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '2rem', fontWeight: 'bold', color: 'white' }}>
                     {app.applicant?.avatar ? (
-                      <img src={`http://localhost:5000/${app.applicant.avatar}`} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    ) : (
+                    <img src={`https://employment-portal-ajcf.onrender.com/${app.applicant.avatar}`} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />                    ) : (
                       app.applicant?.name?.charAt(0).toUpperCase() || 'U'
                     )}
                   </div>
@@ -145,8 +144,7 @@ const JobApplicants = () => {
                   
                   <div>
                     <a 
-                      href={`http://localhost:5000/${app.resumeUrl?.replace('\\', '/')}`} 
-                      target="_blank" 
+                      href={`https://employment-portal-ajcf.onrender.com/${app.resumeUrl?.replace('\\', '/')}`}                      target="_blank" 
                       rel="noopener noreferrer"
                       className="btn btn-outline"
                       style={{ padding: '8px 20px', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.95rem' }}
@@ -201,8 +199,7 @@ const ProfileModal = ({ user, onClose }) => {
           <div style={{ display: 'flex', gap: '18px', alignItems: 'center' }}>
             <div style={{ width: '88px', height: '88px', borderRadius: '14px', overflow: 'hidden', background: 'var(--card-bg)', display: 'grid', placeItems: 'center', fontSize: '2rem', fontWeight: 700, color: 'var(--accent-primary)' }}>
               {user.avatar ? (
-                <img src={`http://localhost:5000/${user.avatar}`} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-              ) : (
+<img src={`https://employment-portal-ajcf.onrender.com/${user.avatar}`} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />              ) : (
                 user.name?.charAt(0) || 'U'
               )}
             </div>
