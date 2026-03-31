@@ -39,30 +39,35 @@ const JobDetails = () => {
     fetchJobDetails();
   }, [id, user]);
 
-  const handleApply = async (e) => {
-    e.preventDefault();
-    if (!resume) return toast.error('Please attach a resume');
+const API = import.meta.env.VITE_API_URL;
 
-    const formData = new FormData();
-    formData.append('resume', resume);
-    formData.append('message', message);
+const handleApply = async (e) => {
+  e.preventDefault();
+  if (!resume) return toast.error('Please attach a resume');
 
-    try {
-      setApplying(true);
-      await axios.post(`/api/applications/${id}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
-      toast.success('Successfully applied for the job!');
-      setShowApply(false);
-      setHasApplied(true); // Automatically lock the button
-    } catch (error) {
-      toast.error(error.response?.data?.message || 'Failed to apply');
-    } finally {
-      setApplying(false);
-    }
-  };
+  const formData = new FormData();
+  formData.append('resume', resume);
+  formData.append('message', message);
+
+  try {
+    setApplying(true);
+
+    // ✅ FIXED LINE
+    await axios.post(`${API}/api/applications/${id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+
+    toast.success('Successfully applied for the job!');
+    setShowApply(false);
+    setHasApplied(true);
+  } catch (error) {
+    toast.error(error.response?.data?.message || 'Failed to apply');
+  } finally {
+    setApplying(false);
+  }
+};
 
   if (loading) return <div className="page-container" style={{ textAlign: 'center' }}>Loading...</div>;
   if (!job) return <div className="page-container" style={{ textAlign: 'center' }}>Job Not Found</div>;

@@ -8,9 +8,6 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const SESSION_MAX_AGE = 30 * 60 * 1000; // 30 minutes
 
-  // Set axios default base URL (proxy won't work perfectly in all prod envs without configuration, so using relative path assuming proxy in dev and same domain in prod)
-  // For dev: we will set proxy in vite.config.js
-  
   useEffect(() => {
     const userInfo = localStorage.getItem('userInfo');
     if (userInfo) {
@@ -18,7 +15,6 @@ export const AuthProvider = ({ children }) => {
       const isExpired = parsedUser.loggedAt && Date.now() - parsedUser.loggedAt > SESSION_MAX_AGE;
       if (!isExpired) {
         setUser(parsedUser);
-        // Set default header
         axios.defaults.headers.common['Authorization'] = `Bearer ${parsedUser.token}`;
       } else {
         localStorage.removeItem('userInfo');
@@ -27,9 +23,11 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
+  const API = import.meta.env.VITE_API_URL;
+
   const login = async (email, password) => {
     try {
-      const { data } = await axios.post('/api/auth/login', { email, password });
+      const { data } = await axios.post(`${API}/api/auth/login`, { email, password });
       const enriched = { ...data, loggedAt: Date.now() };
       setUser(enriched);
       localStorage.setItem('userInfo', JSON.stringify(enriched));
@@ -42,7 +40,9 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (userData) => {
     try {
-      const { data } = await axios.post('/api/auth/register', userData);
+      // ✅ FIXED LINE ONLY
+      const { data } = await axios.post(`${API}/api/auth/register`, userData);
+
       const enriched = { ...data, loggedAt: Date.now() };
       setUser(enriched);
       localStorage.setItem('userInfo', JSON.stringify(enriched));

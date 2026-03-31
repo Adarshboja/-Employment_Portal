@@ -85,15 +85,17 @@ const Home = () => {
     }, 300);
   };
 
-  const toggleSave = async (jobId) => {
-    try {
-      const { data } = await axios.post(`/api/jobs/${jobId}/save`);
-      const savedIds = data.savedJobs.map((j) => j._id || j);
-      updateUser({ ...user, savedJobs: savedIds });
-    } catch (error) {
-      console.error('Error saving job', error);
-    }
-  };
+const API = import.meta.env.VITE_API_URL;
+
+const toggleSave = async (jobId) => {
+  try {
+    const { data } = await axios.post(`${API}/api/jobs/${jobId}/save`);
+    const savedIds = data.savedJobs.map((j) => j._id || j);
+    updateUser({ ...user, savedJobs: savedIds });
+  } catch (error) {
+    console.error('Error saving job', error);
+  }
+};
 
   const hasFilters =
     filters.keyword || filters.location || filters.experience || filters.salary || filters.remote;

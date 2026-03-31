@@ -35,19 +35,27 @@ const RecruiterDashboard = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handlePostJob = async (e) => {
-    e.preventDefault();
-    try {
-      const payload = { ...formData, skills: formData.skills.split(',').map(s => s.trim()) };
-      await axios.post('/api/jobs', payload);
-      toast.success('Job posted successfully');
-      setShowPostJob(false);
-      setFormData({ title: '', company: '', location: '', salary: '', experience: '', skills: '', description: '' });
-      fetchMyJobs();
-    } catch (error) {
-      toast.error(error.response?.data?.message || 'Failed to post job');
-    }
-  };
+const API = import.meta.env.VITE_API_URL;
+
+const handlePostJob = async (e) => {
+  e.preventDefault();
+  try {
+    const payload = { 
+      ...formData, 
+      skills: formData.skills.split(',').map(s => s.trim()) 
+    };
+
+    // ✅ FIXED LINE
+    await axios.post(`${API}/api/jobs`, payload);
+
+    toast.success('Job posted successfully');
+    setShowPostJob(false);
+    setFormData({ title: '', company: '', location: '', salary: '', experience: '', skills: '', description: '' });
+    fetchMyJobs();
+  } catch (error) {
+    toast.error(error.response?.data?.message || 'Failed to post job');
+  }
+};
 
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this job?')) {

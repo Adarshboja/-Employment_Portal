@@ -22,16 +22,24 @@ const SavedJobs = () => {
     load();
   }, []);
 
-  const toggleSave = async (jobId) => {
-    try {
-      const { data } = await axios.post(`/api/jobs/${jobId}/save`);
-      setJobs(data.savedJobs);
-      const updated = { ...user, savedJobs: data.savedJobs.map((j) => j._id || j) };
-      updateUser(updated);
-    } catch (error) {
-      console.error('Error toggling save', error);
-    }
-  };
+const API = import.meta.env.VITE_API_URL;
+
+const toggleSave = async (jobId) => {
+  try {
+    const { data } = await axios.post(`${API}/api/jobs/${jobId}/save`);
+
+    setJobs(data.savedJobs);
+
+    const updated = {
+      ...user,
+      savedJobs: data.savedJobs.map((j) => j._id || j)
+    };
+
+    updateUser(updated);
+  } catch (error) {
+    console.error('Error toggling save', error);
+  }
+};
 
   if (loading) return <div className="page-container">Loading...</div>;
 
